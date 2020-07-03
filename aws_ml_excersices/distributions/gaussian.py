@@ -1,7 +1,7 @@
 import math
 import matplotlib.pyplot as plt
 
-from distribution import Distribution
+from .distribution import Distribution
 
 class Gaussian(Distribution):
     """ Gaussian distribution class for calculating and
@@ -45,30 +45,32 @@ class Gaussian(Distribution):
         """
 
         accumulate = 0
+        mean = self.calculate_mean()
+
         for value in self.data:
-            accumulate += math.pow(value - self.mean, 2)
+            accumulate += math.pow(value - mean, 2)
         divideBy = len(self.data) if sample != True else len(self.data) - 1
         self.stdev = math.sqrt(accumulate / divideBy)
         return self.stdev
 
-    def read_data_file(self, file_name, sample=True):
+    # def read_data_file(self, file_name, sample=True):
 
-        """Method to read in data from a txt file. The txt file should have
-        one number (float) per line. The numbers are stored in the data attribute.
-        After reading in the file, the mean and standard deviation are calculated
+    #     """Method to read in data from a txt file. The txt file should have
+    #     one number (float) per line. The numbers are stored in the data attribute.
+    #     After reading in the file, the mean and standard deviation are calculated
 
-        Args:
-            file_name (string): name of a file to read from
+    #     Args:
+    #         file_name (string): name of a file to read from
 
-        Returns:
-            None
+    #     Returns:
+    #         None
 
-        """
+    #     """
 
-        Distribution.read_data_file(self, file_name)
+    #     Distribution.read_data_file(self, file_name)
 
-        self.calculate_mean()
-        self.calculate_stdev(sample)
+    #     self.calculate_mean()
+    #     self.calculate_stdev(sample)
 
     def plot_histogram(self):
         """Method to output a histogram of the instance variable data using
@@ -102,7 +104,7 @@ class Gaussian(Distribution):
 
         variance = math.pow(self.stdev, 2)
         exponent = -(math.pow(x - self.mean, 2) / 2 * variance)
-        return (1/math.sqrt(2 * math.pi * variance)) * math.exp(exponent)
+        return (1.0/math.sqrt(2 * math.pi * variance)) * math.exp(exponent)
 
     def plot_histogram_pdf(self, n_spaces = 50):
 
@@ -181,12 +183,12 @@ class Gaussian(Distribution):
         return "mean {}, standard deviation {}".format(self.mean, self.stdev)
 
 # Testing
-gaussian_one = Gaussian(5, 2)
-gaussian_two = Gaussian(10, 1)
+# gaussian_one = Gaussian(5, 2)
+# gaussian_two = Gaussian(10, 1)
 
-gaussian_sum = gaussian_one + gaussian_two
+# gaussian_sum = gaussian_one + gaussian_two
 
-print(gaussian_sum.mean)
-print(gaussian_sum.stdev)
+# print(gaussian_sum.mean)
+# print(gaussian_sum.stdev)
 
-print(gaussian_sum)
+# print(gaussian_sum)
